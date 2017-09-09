@@ -40,11 +40,8 @@ public class server extends Thread
 			{
 				try
 				{
-				//	System.out.println("hey3y");
-					//strin1 = (String)inp.readLine();
 					strin1 = inp.readLine();
 					System.out.println("Message from Client "+ this.name +": " + strin1);
-		    		//Server message
 		    		String[] words = strin1.split("\\s");
 		    		if(strin1.startsWith("List All"))
 		    		{
@@ -59,12 +56,9 @@ public class server extends Thread
 		    		}
 		    		if(strin1.startsWith("All:"))
 		    		{
-			   			//System.out.println("he all");
-		    			int j;
+			   		int j;
 		    			String[] str = strin1.split("\\s",2);
-						//System.out.println("len "+ this.len +" | "+this.name);
-
-		    			for (j= 0 ;j <= this.len; ++j) 
+					for (j= 0 ;j <= this.len; ++j) 
 		    			{
 		    				if(thread[j] != this && thread[j] != null)
 		    				{
@@ -72,11 +66,9 @@ public class server extends Thread
 		    				}
 		    			}
 		    		}
-				//	System.out.println("outside if");
-		    		if(strin1.startsWith("Client"))
+				if(strin1.startsWith("Client"))
 		    		{
-						//System.out.println("heyy clients");
-		    			String[] word = strin1.split(":");
+					String[] word = strin1.split(":");
 		    			String[] ste1 = word[0].split("\\s");
 		    			String[] sr = ste1[1].split(",");
 		    			for (String w:sr) {
@@ -92,7 +84,6 @@ public class server extends Thread
 							}
 		    			}
 		    		}
-					//out.flush();
 		    	}
 	    		catch(Exception ex)
 	    		{
@@ -107,7 +98,6 @@ public class server extends Thread
 				sock.close();
 				inp.close();
 				socketServ.close();
-				//myservice
 			}
 			catch(IOException e)
 			{
@@ -130,7 +120,6 @@ public class server extends Thread
 			Socket soc = socketServ.accept();
 			System.out.println("Accept Client "+i);
 			System.out.println("Connected...");
-			//thread[i] = new server(soc, thread, i);
 			(thread[i] = new server(soc, thread, i)).start();
 			i = i+1; 
 		}
