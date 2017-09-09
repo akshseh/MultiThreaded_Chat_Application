@@ -12,7 +12,6 @@ public class client extends Thread
 	static DataInputStream in = null;
 	static PrintStream priOstr = null;
 	static BufferedReader br = null;
-	//static InputStreamReader istrRead = null;
 	static int flag = 0;
 		
 
@@ -20,13 +19,9 @@ public class client extends Thread
 		try{
 			String str = in.readLine();
 			while(str!=null && str.indexOf("close")< 0){
-				//System.out.println(str);
-				//System.out.println("lopo "+str.indexOf("close"));
 				str = in.readLine();
-				//System.out.println("lopoo");
 			}
 		flag = 1;
-		//System.out.println("lopoo");
 		}
 		catch(IOException r){
 			System.out.println("Exceptionn");
@@ -35,38 +30,24 @@ public class client extends Thread
 
 	public static void main(String[] args) throws Exception
 	{
-		//arg[0] - IP address //arg[1] - Port
 		try
 		{
 			soc = new Socket("127.0.0.1",1234);
-			//takes input from terminal
 			System.out.println("Connection established");
-			//Scjset
 			in = new DataInputStream(soc.getInputStream());	
-			//sends output to socket
-			//out = new DataOutputStream(soc.getOutputStream());
 			priOstr = new PrintStream(soc.getOutputStream());
-			//ill
 			br = new BufferedReader(new InputStreamReader(System.in));
 		} 
 		catch(IOException e)
 		{
 			System.out.println("IO problem ");
 		}
-
-		//String st = "";
-		//String st2 = "";
 		new Thread(new client()).start();
 		while(flag == 0)
 		{
 			try
 			{
-				//st = br.readLine();
-				//new Thread(new client()).start();
 				priOstr.println(br.readLine());
-				//out.writeUTF(st);
-				//st2 = in.readUTF();
-				//System.out.println("Message from server: " + st2);
 			}
 			catch(Exception ex)
 			{
