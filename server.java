@@ -25,17 +25,13 @@ public class server extends Thread
 			len = index;
 		}
 	}
-
-//	to find out num of clients : thread.length;
-
+	
 	public void run()
 	{
 		server[] thread = this.thread;
 		try
 		{	
-			//System.out.println("heyy");
 			inp = new DataInputStream(sock.getInputStream());			
-			//out = new DataOutputStream(this.sock.getOutputStream());	
 			os = new PrintStream(sock.getOutputStream());
 			String strin1 = "";
 			os.println("Index + total "+this.name+ " " + len);
