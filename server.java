@@ -24,28 +24,40 @@ public class server extends Thread
 		if(len < index){
 			len = index;
 		}
+		// for (int i=0; i<index; i++ ) {
+		// 	if(index>i)
+		// 		thread[i].len = index;
+		// }
 	}
-	
+
+//	to find out num of clients : thread.length;
+
 	public void run()
 	{
 		server[] thread = this.thread;
 		try
 		{	
+			//System.out.println("heyy");
 			inp = new DataInputStream(sock.getInputStream());			
+			//out = new DataOutputStream(this.sock.getOutputStream());	
 			os = new PrintStream(sock.getOutputStream());
 			String strin1 = "";
-			os.println("Index + total "+this.name+ " " + len);
-
+		//	os.println("Index + Len"+this.name+len);
+			//String strin2= "";
+			//String[] a ;
+		//	System.out.println("hey len : "+len);
+	
 			while(!strin1.equals("exit"))
 			{
 				try
 				{
+					//strin1 = (String)inp.readLine();
 					strin1 = inp.readLine();
 					System.out.println("Message from Client "+ this.name +": " + strin1);
+		    		//Server message
 		    		String[] words = strin1.split("\\s");
 		    		if(strin1.startsWith("List All"))
 		    		{
-						//System.out.println("he - list all");
 		    			for (int k = 0; k <= this.len; ++k) 
 		    			{	
 		    				if(thread[k] != null)
@@ -58,11 +70,14 @@ public class server extends Thread
 		    		{
 			   		int j;
 		    			String[] str = strin1.split("\\s",2);
-					for (j= 0 ;j <= this.len; ++j) 
+						//System.out.println("len "+ this.len +" | "+this.name);
+
+		    			for (j= 0 ;j <= this.len; ++j) 
 		    			{
+		    				//System.out.println(thread[j]==null);
 		    				if(thread[j] != this && thread[j] != null)
 		    				{
-		    					thread[j].os.println("@All - Client "+ this.name + " says: "+ str[1]);
+		    					thread[j].os.println("Client "+ this.name + " says: "+ str[1]);
 		    				}
 		    			}
 		    		}
@@ -80,10 +95,12 @@ public class server extends Thread
 								thread[i].os.println("ERROR: You are sending yourself a message.");    				
 							}
 							else{
-								thread[this.name].os.println("ERROR: Client " + i +" does not exist");
+								thread[this.name].os.println("ERROR:Client " + i +" does not exist");
 							}
 		    			}
 		    		}
+
+					//out.flush();
 		    	}
 	    		catch(Exception ex)
 	    		{
@@ -97,7 +114,9 @@ public class server extends Thread
 			{
 				sock.close();
 				inp.close();
-				socketServ.close();
+				socketServ.close();//myservice
+				//try : and remove socketServ.close()
+				//soc.close();
 			}
 			catch(IOException e)
 			{
@@ -111,7 +130,7 @@ public class server extends Thread
 
 	public static void main(String[] args) throws Exception
 	{
-		final int port = 1234;
+		final int port = 2222;
 		ServerSocket socketServ = new ServerSocket(port);
 		int i = 0;
 		System.out.println("Creating server socket on port: "+ port);
@@ -120,6 +139,7 @@ public class server extends Thread
 			Socket soc = socketServ.accept();
 			System.out.println("Accept Client "+i);
 			System.out.println("Connected...");
+			//thread[i] = new server(soc, thread, i);
 			(thread[i] = new server(soc, thread, i)).start();
 			i = i+1; 
 		}
