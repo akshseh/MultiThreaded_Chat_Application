@@ -46,18 +46,29 @@ public class server extends Thread
 			//String strin2= "";
 			//String[] a ;
 		//	System.out.println("hey len : "+len);
-	
+		//	for (int j = 0; j < len; j++) {
+        // if (thread[j] != null && thread[j] != this) {
+        //   thread[j].os.println("*** A new user " + this.name
+        //       + " entered the chat room !!! ***");
+        // }
+      //}
+
 			while(!strin1.equals("exit"))
 			{
 				try
 				{
+				//	System.out.println("hey3y");
+
 					//strin1 = (String)inp.readLine();
 					strin1 = inp.readLine();
+
 					System.out.println("Message from Client "+ this.name +": " + strin1);
 		    		//Server message
 		    		String[] words = strin1.split("\\s");
 		    		if(strin1.startsWith("List All"))
 		    		{
+						//System.out.println("he - list all");
+
 		    			for (int k = 0; k <= this.len; ++k) 
 		    			{	
 		    				if(thread[k] != null)
@@ -68,12 +79,14 @@ public class server extends Thread
 		    		}
 		    		if(strin1.startsWith("All:"))
 		    		{
-			   		int j;
+			   			//System.out.println("he all");
+		    			int j;
 		    			String[] str = strin1.split("\\s",2);
 						//System.out.println("len "+ this.len +" | "+this.name);
 
 		    			for (j= 0 ;j <= this.len; ++j) 
 		    			{
+		    				//System.out.println("heyo"+j);
 		    				//System.out.println(thread[j]==null);
 		    				if(thread[j] != this && thread[j] != null)
 		    				{
@@ -81,9 +94,11 @@ public class server extends Thread
 		    				}
 		    			}
 		    		}
-				if(strin1.startsWith("Client"))
+				//	System.out.println("outside if");
+		    		if(strin1.startsWith("Client"))
 		    		{
-					String[] word = strin1.split(":");
+						//System.out.println("heyy clients");
+		    			String[] word = strin1.split(":");
 		    			String[] ste1 = word[0].split("\\s");
 		    			String[] sr = ste1[1].split(",");
 		    			for (String w:sr) {
